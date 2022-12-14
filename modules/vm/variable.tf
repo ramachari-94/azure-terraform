@@ -102,7 +102,8 @@ variable "admin_username" {
 variable "admin_password" {
     description =   "Password to login to the VM"
     type        =   string
-    default     =   "P@$$w0rD2020*"
+    default     =   ""
+    #default     =   "P@$$w0rD2020*"
 }
 
 variable "os_disk_caching" {
