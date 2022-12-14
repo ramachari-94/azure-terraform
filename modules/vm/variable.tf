@@ -44,7 +44,7 @@ variable "tags" {
 variable "rg" {
     description =   "Location of the resource group"
     type        =   string
-    default     =   "Regroup_1vxuhas"
+    default     =   "Jenkins-Terraform"
 }
 
 
