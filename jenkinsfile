@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ramachari-94/azure-terraform']]])
+            }
+        }
+        // stage('az login') {
+        //     steps {
+        //         sh """
+        //         az login --service-principal -u "" -p "" --tenant ""
+        //         """
+        //     }
+        // }
+        stage('terraform init') {
+            steps {
+                sh 'terraform init' 
+            }
+        }
+        stage('terraform tflint') {
+            steps {
+                sh 'tflint --init'
+                    sh 'tflint'
+            }
+        }
+        stage('terraform tfscan') {
+            steps {
+                sh 'tfsec'
+            }
+        }
+        stage('terraform Format') {
+            steps {
+                sh 'terraform fmt -list=false'
+            }
+        }
+        stage('terraform Validate') {
+            steps {
+                sh 'terraform validate'
+            }
+        }
+        stage('terraform compliance') {
+            steps {
+                sh 'terraform-compliance --version'
+            }
+        }
+        stage('terraform Plan') {
+            steps {
+                echo "Terraform action is ${action}"
+                sh 'terraform plan -out=plan.out && terraform-compliance -p plan.out -f example'
+            }
+        }
+        // stage('terraform apply') {
+        //     steps {
+        //         sh 'terraform ${action} -auto-approve'
+        //     }
+        // }
+    }
+}
