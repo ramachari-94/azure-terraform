@@ -71,8 +71,8 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                    =       "Tcp"
     source_port_range           =       "*"
     destination_port_range      =       22
-    source_address_prefix       =       "*" 
-    destination_address_prefix  =       "*"
+    source_address_prefix       =       "101.0.62.105\32" 
+    destination_address_prefix  =       "101.0.62.105\32"
     }
     security_rule {
     name                        =       "Allow_SSH_Jenkins"
@@ -82,8 +82,8 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                    =       "Tcp"
     source_port_range           =       "*"
     destination_port_range      =       8080
-    source_address_prefix       =       "*" 
-    destination_address_prefix  =       "*"
+    source_address_prefix       =       "101.0.62.105\32" 
+    destination_address_prefix  =       "101.0.62.105\32"
     }
 }
 
